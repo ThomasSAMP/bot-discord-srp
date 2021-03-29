@@ -102,11 +102,11 @@ function GetPlayersOnline(msg) {
 
 const setSampIP = (msg, param) => {
     if (!msg.guild) {
-        msg.reply("This command can only be used in a guild.");
+        msg.channel.send("This command can only be used in a guild.");
         return;
     }
     if (!msg.member.roles.find("name", "Lead Admin")) {
-        msg.reply("Vous ne pouvez pas utiliser cette commande.")
+        msg.channel.send("Vous ne pouvez pas utiliser cette commande.")
         return;
     }
     if (!param) {
@@ -119,11 +119,11 @@ const setSampIP = (msg, param) => {
 
 const setSampPort = (msg, param) => {
     if (!msg.guild) {
-        msg.reply("This command can only be used in a guild.");
+        msg.channel.send("This command can only be used in a guild.");
         return;
     }
     if (!msg.member.roles.find("name", "Lead Admin")) {
-        msg.reply("Vous ne pouvez pas utiliser cette commande.")
+        msg.channel.send("Vous ne pouvez pas utiliser cette commande.")
         return;
     }
     if (!param) {
@@ -138,14 +138,18 @@ const setSampPort = (msg, param) => {
 
 
 bot.on('message', msg => {
+    if (msg.content === '!zebi') {
+        msg.reply(`Server IP: ${Samp_IP}`);
+        msg.channel.send(`Server IP: ${Samp_IP}`);
+    }
     if (msg.content === '!players') {
         GetPlayersOnline(msg)
     }
     if (msg.content === '!setip') {
-        setSampIP(msg, parameters.join(" "))
+        setSampIP(msg)
     }
     if (msg.content === '!setport') {
-        setSampPort(msg, parameters.join(" "))
+        setSampPort(msg)
     }
 });
 
