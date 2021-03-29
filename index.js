@@ -23,7 +23,7 @@ bot.on("ready", async() => {
     bot.user.setStatus('dnd')
     bot.user.setActivity('manger des daronnes')
 
-    setInterval(newSanction, 2000000);
+    setInterval(newSanction, 20000);
 
 })
 
