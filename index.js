@@ -23,7 +23,7 @@ bot.on("ready", async() => {
     bot.user.setStatus('dnd')
     bot.user.setActivity('manger des daronnes')
 
-    setInterval(newSanction, 20000);
+    setInterval(newSanction, 2000000);
 
 })
 
@@ -31,7 +31,9 @@ function newSanction() {
     console.log('Nouvelle sanction!')
     con.query('SELECT * FROM `sanctions`', function(error, results, fields) {
         // channel.send('ID: ' + results[0]['id'] + 'Name: ' + results[0]['name'] + 'Email: ' + results[0]['email'] + 'VIP: ' + results[0]['vip'])
-        console.log(results[0]['id'])
+        results.forEach(element => {
+            channel.send('ID: ' + element['id'] + 'Admin: ' + element['admin'] + 'Joueur: ' + element['joueur'] + 'Raison: ' + element['raison'] + 'DiscordSend: ' + element['discord_notif'])
+        });
     })
 }
 
