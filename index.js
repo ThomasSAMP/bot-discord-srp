@@ -4,8 +4,8 @@ const bot = new Discord.Client()
 const mysql = require('mysql')
 
 let channel = '685250262721757216'
-let Samp_IP = "149.202.64.55";
-let Samp_Port = 1200;
+let Samp_IP = "51.178.16.121";
+let Samp_Port = 7777;
 
 const con = mysql.createConnection({
     host: process.env.SQL_HOST,
@@ -86,11 +86,11 @@ function GetPlayersOnline() {
 
             const msgEmbed = {
                 embed: {
-                    title: 'Server Information',
+                    title: 'Information Serveur',
                     color: '#0099ff',
                     fields: [
-                        { name: 'IP', value: response['address'], inline: true },
-                        { name: 'Joueurs en ligne', value: response['online'] + '/' + response['maxplayers'], inline: true }
+                        { name: 'IP', value: response['address'], inline: false },
+                        { name: 'Joueurs en ligne', value: response['online'] + '/' + response['maxplayers'], inline: false }
                     ],
                 }
             }
