@@ -29,12 +29,14 @@ bot.on("ready", async() => {
 
 function newSanction() {
     console.log('Nouvelle sanction!')
-    con.query('SELECT * FROM `sanctions`', function(error, results, fields) {
+    con.query('SELECT * FROM `sanctions` WHERE `discord_notif` = 0', function(error, results, fields) {
         results.forEach(element => {
+            con.query('UPDATE `sanctions` SET `discord_notif` = 1 WHERE `id`=' + element['id'])
             console.log(element['id'])
-                //bot.channels.cache.get(channel).send(element['id']);
+            bot.channels.cache.get(channel).send(element['id']);
         });
     })
+
 }
 
 
