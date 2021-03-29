@@ -122,7 +122,7 @@ const setSampPort = (msg, param) => {
         msg.reply("This command can only be used in a guild.");
         return;
     }
-    if (!msg.member.roles.find("name", "Lead Admin")) {
+    if (!msg.member.roles.cache.some(r => ["Lead Admin", "Gestion Serveur", "Fondateur"].includes(r.name))) {
         msg.reply("Vous ne pouvez pas utiliser cette commande.")
         return;
     }
