@@ -2,7 +2,7 @@ const Discord = require('discord.js')
 const bot = new Discord.Client()
 const mysql = require('mysql')
 
-const channel = bot.channels.cache.get('685250262721757216')
+let channel = '685250262721757216'
 
 const con = mysql.createConnection({
     host: process.env.SQL_HOST,
@@ -32,7 +32,7 @@ function newSanction() {
     con.query('SELECT * FROM `sanctions`', function(error, results, fields) {
         results.forEach(element => {
             console.log(element['id'])
-            channel.send(element['id'])
+            bot.channels.cache.get(channel).send(element['id']);
         });
     })
 }
