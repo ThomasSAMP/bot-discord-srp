@@ -31,7 +31,7 @@ function newSanction() {
     console.log('Nouvelle sanction!')
     con.query('SELECT * FROM `sanctions`', function(error, results, fields) {
         results.forEach(element => {
-            console.log(element)
+            console.log(element['id'])
                 //channel.send('ID: ' + element['id'] + 'Admin: ' + element['admin'] + 'Joueur: ' + element['joueur'] + 'Raison: ' + element['raison'] + 'DiscordSend: ' + element['discord_notif'])
         });
     })
