@@ -3,6 +3,7 @@ const query = require('samp-query')
 const bot = new Discord.Client()
 const mysql = require('mysql')
 
+let roleID = '685236404107608128'
 let channel = '685250262721757216'
 let Samp_IP = "51.178.16.121";
 let Samp_Port = 7777;
@@ -23,7 +24,7 @@ bot.on("ready", async() => {
     console.log('Le bot est activé.')
     console.log(`Connecté en tant que ${bot.user.tag}!`);
 
-    bot.user.setStatus('dnd')
+    bot.user.setStatus('online')
     bot.user.setActivity('manger des daronnes')
 
     setInterval(newSanction, 2000);
@@ -99,10 +100,52 @@ function GetPlayersOnline(msg) {
 
 }
 
+const setSampIP = (msg, param) => {
+    if (!msg.guild) {
+        msg.reply("This command can only be used in a guild.");
+        return;
+    }
+    if (!msg.member.roles.find("name", "Lead Admin")) {
+        msg.reply("Vous ne pouvez pas utiliser cette commande.")
+        return;
+    }
+    if (!param) {
+        msg.channel.send("Utilisation: !setip [ip sans le port] \n Exemple: !setip 127.0.0.1")
+        return;
+    }
+    Samp_IP = param;
+    msg.channel.send(`IP du serveur modifiée : ${Samp_IP}`);
+};
+
+const setSampPort = (msg, param) => {
+    if (!msg.guild) {
+        msg.reply("This command can only be used in a guild.");
+        return;
+    }
+    if (!msg.member.roles.find("name", "Lead Admin")) {
+        msg.reply("Vous ne pouvez pas utiliser cette commande.")
+        return;
+    }
+    if (!param) {
+        msg.channel.send("Utilisation: !setport [port] \n Exemple: !setport 7777")
+        return;
+    }
+    if (!isNaN(param)) {
+        Samp_Port = Number(param);
+        msg.channel.send(`Port du serveur modifié : ${Samp_Port}`);
+    }
+};
+
 
 bot.on('message', msg => {
     if (msg.content === '!players') {
-        GetPlayersOnline(msg);
+        GetPlayersOnline(msg)
+    }
+    if (msg.content === '!setip') {
+        setSampIP(msg, parameters.join(" "))
+    }
+    if (msg.content === '!setport') {
+        setSampPort(msg, parameters.join(" "))
     }
 });
 
