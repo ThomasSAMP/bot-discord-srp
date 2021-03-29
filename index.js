@@ -22,10 +22,9 @@ bot.on("ready", async() => {
     bot.user.setStatus("dnd")
     bot.user.setActivity("manger des daronnes")
 
-    const channel = bot.channels.cache.get('685244781701365775')
+    const channel = bot.channels.cache.get('685250262721757216')
 
-    channel.send('Parle bien de Stories Roleplay Corp fdp')
-    channel.send('Allooooo')
+    channel.send('Salut salut')
 
     // for (var i = 1; i > 0; i++) {
     //     console.log('salut')
