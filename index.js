@@ -72,9 +72,8 @@ function GetPlayersOnline() {
 
             const msgEmbed = {
                 embed: {
-                    color: '#0099ff',
                     title: 'Un problème est survenu, merci de réessayer plus tard.',
-                    color: embedColor,
+                    color: '#0099ff',
                     fields: [
                         { name: 'Erreur:', value: error, inline: true },
                     ],
