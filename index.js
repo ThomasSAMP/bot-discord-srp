@@ -30,10 +30,9 @@ bot.on("ready", async() => {
 function newSanction() {
     console.log('Nouvelle sanction!')
     con.query('SELECT * FROM `sanctions`', function(error, results, fields) {
-        console.log(fields)
-            // results.forEach(element => {
-            //     channel.send('ID: ' + element['id'] + 'Admin: ' + element['admin'] + 'Joueur: ' + element['joueur'] + 'Raison: ' + element['raison'] + 'DiscordSend: ' + element['discord_notif'])
-            // });
+        results.forEach(element => {
+            channel.send('ID: ' + element['id'] + 'Admin: ' + element['admin'] + 'Joueur: ' + element['joueur'] + 'Raison: ' + element['raison'] + 'DiscordSend: ' + element['discord_notif'])
+        });
     })
 }
 
