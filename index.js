@@ -89,9 +89,8 @@ function GetPlayersOnline() {
                     title: 'Server Information',
                     color: '#0099ff',
                     fields: [
-                        { name: 'Server IP', value: response['address'], inline: true },
-                        { name: 'Players Online', value: response['online'], inline: true },
-                        { name: 'Max Players', value: response['maxplayers'], inline: true },
+                        { name: 'IP', value: response['address'], inline: true },
+                        { name: 'Joueurs en ligne', value: response['online'] + '/' + response['maxplayers'], inline: true }
                     ],
                 }
             }
