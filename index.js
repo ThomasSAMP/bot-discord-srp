@@ -61,7 +61,7 @@ function newSanction() {
 
 }
 
-function GetPlayersOnline() {
+function GetPlayersOnline(msg) {
     var options = {
         host: Samp_IP,
         port: Samp_Port
@@ -79,7 +79,7 @@ function GetPlayersOnline() {
                     ],
                 }
             }
-            bot.channels.cache.get(channel).send(msgEmbed);
+            msg.channel.send(msgEmbed)
 
         } else {
 
@@ -93,7 +93,7 @@ function GetPlayersOnline() {
                     ],
                 }
             }
-            bot.channels.cache.get(channel).send(msgEmbed);
+            msg.channel.send(msgEmbed)
         }
     })
 
@@ -102,7 +102,7 @@ function GetPlayersOnline() {
 
 bot.on('message', msg => {
     if (msg.content === '!players') {
-        GetPlayersOnline();
+        GetPlayersOnline(msg);
     }
 });
 
