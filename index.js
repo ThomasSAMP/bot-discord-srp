@@ -32,7 +32,7 @@ function newSanction() {
     con.query('SELECT * FROM `sanctions`', function(error, results, fields) {
         results.forEach(element => {
             console.log(element['id'])
-            bot.channels.cache.get(channel).send(element['id']);
+                //bot.channels.cache.get(channel).send(element['id']);
         });
     })
 }
