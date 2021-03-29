@@ -138,6 +138,8 @@ const setSampPort = (msg, param) => {
 
 
 bot.on('message', msg => {
+    let parameters = [];
+
     if (msg.content === '!zebi') {
         msg.channel.send(`Server IP: ${Samp_IP}`);
     }
@@ -145,10 +147,10 @@ bot.on('message', msg => {
         GetPlayersOnline(msg)
     }
     if (msg.content === '!setip') {
-        setSampIP(msg, param)
+        setSampIP(msg, parameters.join(" "))
     }
     if (msg.content === '!setport') {
-        setSampPort(msg, param)
+        setSampPort(msg, parameters.join(" "))
     }
 });
 
