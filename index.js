@@ -1,8 +1,11 @@
 const Discord = require('discord.js')
+const query = require('samp-query')
 const bot = new Discord.Client()
 const mysql = require('mysql')
 
 let channel = '685250262721757216'
+let Samp_IP = "149.202.64.55";
+let Samp_Port = 1200;
 
 const con = mysql.createConnection({
     host: process.env.SQL_HOST,
@@ -58,10 +61,50 @@ function newSanction() {
 
 }
 
+function GetPlayersOnline() {
+    var options = {
+        host: Samp_IP,
+        port: Samp_Port
+    }
+    query(options, function(error, response) {
+        if (error) {
+            console.log(error)
+
+            const msgEmbed = {
+                embed: {
+                    color: '#0099ff',
+                    title: 'Un problème est survenu, merci de réessayer plus tard.',
+                    color: embedColor,
+                    fields: [
+                        { name: 'Erreur:', value: error, inline: true },
+                    ],
+                }
+            }
+            bot.channels.cache.get(channel).send(msgEmbed);
+
+        } else {
+
+            const msgEmbed = {
+                embed: {
+                    title: 'Server Information',
+                    color: '#0099ff',
+                    fields: [
+                        { name: 'Server IP', value: response['address'], inline: true },
+                        { name: 'Players Online', value: response['online'], inline: true },
+                        { name: 'Max Players', value: response['maxplayers'], inline: true },
+                    ],
+                }
+            }
+            bot.channels.cache.get(channel).send(msgEmbed);
+        }
+    })
+
+}
+
 
 bot.on('message', msg => {
-    if (msg.content === 'ping') {
-        msg.reply('Pong!');
+    if (msg.content === '!players') {
+        GetPlayersOnline();
     }
 });
 
