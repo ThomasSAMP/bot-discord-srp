@@ -28,12 +28,31 @@ bot.on("ready", async() => {
 })
 
 function newSanction() {
-    console.log('Nouvelle sanction!')
     con.query('SELECT * FROM `sanctions` WHERE `discord_notif` = 0', function(error, results, fields) {
         results.forEach(element => {
+            const msgEmbed = new Discord.MessageEmbed()
+                .setColor('#0099ff')
+                .setTitle('Nouvelle sanction')
+                .setAuthor('Stories Roleplay', 'https://i.ibb.co/WFZpZS7/logo-white-petit.png')
+                .addFields({
+                    name: "Joueur :",
+                    value: element['joueur'],
+                    inline: true
+                }, {
+                    name: "Admin :",
+                    value: element['admin'],
+                    inline: true
+                }, {
+                    name: "Raison :",
+                    value: element['raison'],
+                    inline: true
+                })
+                .setTimestamp()
+                .setFooter('Message automatique envoyé le', 'https://i.ibb.co/WFZpZS7/logo-white-petit.png')
+
             con.query('UPDATE `sanctions` SET `discord_notif` = 1 WHERE `id`=' + element['id'])
-            console.log(element['id'])
-            bot.channels.cache.get(channel).send(element['id']);
+            console.log('Nouvelle sanction: ID = ' + element['id'] + ' ADMIN = ' + element['admin'] + ' JOUEUR = ' + element['joueur'] + ' RAISON = ' + element['raison'])
+            bot.channels.cache.get(channel).send(msgEmbed);
         });
     })
 
