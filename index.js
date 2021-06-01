@@ -3,16 +3,15 @@ const query = require('samp-query')
 const bot = new Discord.Client()
 const mysql = require('mysql')
 
-let roleID = '685236404107608128'
-let channel = '685250262721757216'
-let Samp_IP = "51.178.16.121";
-let Samp_Port = 7777;
+let channel = '781084118842605568'
+let Samp_IP = "51.178.41.211";
+let Samp_Port = 3404;
 
 const con = mysql.createConnection({
-    host: process.env.SQL_HOST,
-    user: process.env.SQL_USER,
-    password: process.env.SQL_PASS,
-    database: process.env.SQL_DB
+    host: "51.178.41.211",
+    user: "storiesrp",
+    password: "8EBeTOMA61wi",
+    database: "gtrp"
 })
 
 con.connect(function(err) {
@@ -151,4 +150,4 @@ bot.on('message', msg => {
     }
 });
 
-bot.login(process.env.TOKEN)
+bot.login("ODI1ODAzMzc4MDgzNzU4MTMx.YGDPVA.AjumpmzYH4SL5sDpw5zefMhm_rQ")
