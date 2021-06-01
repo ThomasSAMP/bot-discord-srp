@@ -6,6 +6,7 @@ const mysql = require('mysql')
 let channel = '781084118842605568'
 let Samp_IP = "51.178.41.211";
 let Samp_Port = 3404;
+let logo = "https://storiesrp.fr/site/img/logo.png";
 
 const con = mysql.createConnection({
     host: "51.178.41.211",
@@ -14,11 +15,11 @@ const con = mysql.createConnection({
     database: "gtrp"
 })
 
-con.connect(function(err) {
+con.connect(function (err) {
     console.log("MySQL connecté!")
 })
 
-bot.on("ready", async() => {
+bot.on("ready", async () => {
 
     console.log('Le bot est activé.')
     console.log(`Connecté en tant que ${bot.user.tag}!`);
@@ -31,29 +32,77 @@ bot.on("ready", async() => {
 })
 
 function newSanction() {
-    con.query('SELECT * FROM `sanctions` WHERE `discord_notif` = 0', function(error, results, fields) {
+    con.query('SELECT * FROM `gtrp_sanctions` WHERE `discord_notif` = 0', function (error, results, fields) {
         results.forEach(element => {
             const msgEmbed = new Discord.MessageEmbed()
                 .setColor('#0099ff')
                 .setTitle('Nouvelle sanction')
-                .setAuthor('Stories Roleplay', 'https://i.ibb.co/WFZpZS7/logo-white-petit.png')
+                .setAuthor('Stories Roleplay', logo)
                 .addFields({
                     name: "Joueur :",
-                    value: element['joueur'],
+                    value: element['player'],
                     inline: true
                 }, {
                     name: "Admin :",
                     value: element['admin'],
                     inline: true
                 }, {
-                    name: "Raison :",
-                    value: element['raison'],
+                    name: "IP :",
+                    value: element['ip'],
                     inline: true
                 })
                 .setTimestamp()
-                .setFooter('Message automatique envoyé le', 'https://i.ibb.co/WFZpZS7/logo-white-petit.png')
+                .setFooter('Message automatique envoyé le')
 
-            con.query('UPDATE `sanctions` SET `discord_notif` = 1 WHERE `id`=' + element['id'])
+            if (element['type'] == 0) {
+                msgEmbed.addFields({
+                    name: "Type :",
+                    value: "Kick",
+                    inline: true
+                })
+            }
+            if (element['type'] == 1 || element['type'] == 2) {
+                msgEmbed.addFields({
+                    name: "Type :",
+                    value: "TKick",
+                    inline: true
+                })
+            }
+            if (element['type'] == 3 || element['type'] == 4) {
+                msgEmbed.addFields({
+                    name: "Type :",
+                    value: "Mute",
+                    inline: true
+                }, {
+                    name: "Durée :",
+                    value: element['params'] + "min",
+                    inline: true
+                })
+            }
+            if (element['type'] == 5 || element['type'] == 6) {
+                msgEmbed.addFields({
+                    name: "Type :",
+                    value: "Jail",
+                    inline: true
+                }, {
+                    name: "Durée :",
+                    value: element['params'] + "min",
+                    inline: true
+                })
+            }
+            if (element['type'] == 7 || element['type'] == 8 || element['type'] == 9 || element['type'] == 10 || element['type'] == 11) {
+                msgEmbed.addFields({
+                    name: "Type :",
+                    value: "Ban",
+                    inline: true
+                }, {
+                    name: "Durée :",
+                    value: element['params'],
+                    inline: true
+                })
+            }
+
+            con.query('UPDATE `gtrp_sanctions` SET `discord_notif` = 1 WHERE `id`=' + element['id'])
             console.log('Nouvelle sanction: ID = ' + element['id'] + ' ADMIN = ' + element['admin'] + ' JOUEUR = ' + element['joueur'] + ' RAISON = ' + element['raison'])
             bot.channels.cache.get(channel).send(msgEmbed);
         });
@@ -66,7 +115,7 @@ function GetPlayersOnline(msg) {
         host: Samp_IP,
         port: Samp_Port
     }
-    query(options, function(error, response) {
+    query(options, function (error, response) {
         if (error) {
             console.log(error)
 
